@@ -1,6 +1,7 @@
 ﻿namespace IdentityProject.Models
 {
-    public class Country
+    public enum Country
     {
+        USA, UK, France, Germany, Russia, Iran
     }
 }

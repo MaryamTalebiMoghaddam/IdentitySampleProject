@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace IdentityProject.Models
 {
@@ -6,5 +7,10 @@ namespace IdentityProject.Models
     {
 
         public Country Country { get; set; }
+
+        public int Age { get; set; }
+
+        [Required]
+        public string Salary { get; set; }
     }
 }
