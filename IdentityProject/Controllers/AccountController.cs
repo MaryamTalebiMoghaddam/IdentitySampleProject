@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityProject.Controllers
 {
-    
+
     [Authorize]
     public class AccountController : Controller
     {
@@ -32,10 +32,10 @@ namespace IdentityProject.Controllers
             if (ModelState.IsValid)
             {
                 AppUser user = await UserManager.FindByEmailAsync(login.Email);
-                if (user!=null)
+                if (user != null)
                 {
                     await SignInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await SignInManager.PasswordSignInAsync(user, login.Password, false, false);
+                    Microsoft.AspNetCore.Identity.SignInResult result = await SignInManager.PasswordSignInAsync(user, login.Password, login.Remember, false);
                     if (result.Succeeded)
                     {
                         return Redirect(login.ReturnUrl ?? "/");
@@ -44,6 +44,12 @@ namespace IdentityProject.Controllers
                 }
             }
             return View(login);
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Index()
